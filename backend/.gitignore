@@ -1,0 +1,4 @@
+node_modules
+.env
+# Root .gitignore ignores .env*; keep the example file tracked.
+!.env.example
