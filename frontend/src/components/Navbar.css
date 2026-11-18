@@ -64,6 +64,31 @@
   display: none;
 }
 
+/* Avatar link to the Edit Profile page */
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 3px;
+  border-radius: 999px;
+  color: var(--color-text);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navbar-profile:hover {
+  background: var(--color-bg);
+}
+
+.navbar-profile:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.navbar-profile-text {
+  display: none;
+}
+
 /* Sidebar menu button: only needed when the sidebar is a drawer */
 .navbar-menu-btn {
   display: none;
@@ -97,5 +122,15 @@
 
   .navbar-actions.is-open {
     display: flex;
+  }
+
+  /* In the mobile menu: avatar + "Edit profile" as a full row */
+  .navbar-profile {
+    padding: var(--space-2);
+    border-radius: var(--radius);
+  }
+
+  .navbar-profile-text {
+    display: inline;
   }
 }

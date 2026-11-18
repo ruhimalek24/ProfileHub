@@ -1,0 +1,45 @@
+/* Moved unchanged from Dashboard.css (only the class names changed). */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.app-layout-body {
+  flex: 1;
+  display: flex;
+}
+
+/* Desktop: sidebar stays in place while content scrolls */
+.app-layout-body > .sidebar {
+  position: sticky;
+  top: var(--navbar-height);
+  height: calc(100vh - var(--navbar-height));
+}
+
+.app-layout-main {
+  flex: 1;
+  min-width: 0; /* lets long text wrap instead of overflowing */
+  display: flex;
+  flex-direction: column;
+}
+
+.app-layout-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  padding: var(--space-8);
+}
+
+/* Tablet: sidebar becomes a drawer (see Sidebar.css) */
+@media (max-width: 900px) {
+  .app-layout-body > .sidebar {
+    position: fixed;
+    top: 0;
+    height: auto;
+  }
+
+  .app-layout-content {
+    padding: var(--space-6) var(--space-4);
+  }
+}

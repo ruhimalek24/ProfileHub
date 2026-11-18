@@ -4,18 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { getMeRequest } from '../api/userApi';
 import { getErrorMessage } from '../api/axios';
-import { formatDate, formatDateTime, getInitials } from '../utils/format';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import { formatDate, formatDateTime } from '../utils/format';
+import AppLayout from '../components/AppLayout';
+import Avatar from '../components/Avatar';
 import StatCard from '../components/StatCard';
 import Button from '../components/Button';
-import Footer from '../components/Footer';
 import './Dashboard.css';
-
-const SIDEBAR_LINKS = [
-  { to: '/dashboard', label: 'Dashboard', icon: '▦' },
-  { to: '/', label: 'Home', icon: '⌂' },
-];
 
 function Dashboard() {
   const { logout } = useAuth();
@@ -25,7 +19,6 @@ function Dashboard() {
   const [data, setData] = useState(null); // { user, stats } from /users/me
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const loadDashboard = useCallback(async () => {
     setLoading(true);
@@ -54,37 +47,21 @@ function Dashboard() {
   }
 
   return (
-    <div className="dashboard">
-      <Navbar onMenuClick={() => setSidebarOpen(true)} />
+    <AppLayout>
+      {loading && !data && <DashboardSkeleton />}
 
-      <div className="dashboard-body">
-        <Sidebar
-          links={SIDEBAR_LINKS}
-          open={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-          onLogout={handleLogout}
-        />
-
-        <div className="dashboard-main">
-          <main className="dashboard-content">
-            {loading && !data && <DashboardSkeleton />}
-
-            {error && !loading && (
-              <div className="dashboard-error card" role="alert">
-                <h2>Could not load your dashboard</h2>
-                <p className="text-muted">{error}</p>
-                <Button onClick={loadDashboard}>Try again</Button>
-              </div>
-            )}
-
-            {data && !error && (
-              <DashboardData data={data} loading={loading} onRefresh={loadDashboard} onLogout={handleLogout} />
-            )}
-          </main>
-          <Footer />
+      {error && !loading && (
+        <div className="dashboard-error card" role="alert">
+          <h2>Could not load your dashboard</h2>
+          <p className="text-muted">{error}</p>
+          <Button onClick={loadDashboard}>Try again</Button>
         </div>
-      </div>
-    </div>
+      )}
+
+      {data && !error && (
+        <DashboardData data={data} loading={loading} onRefresh={loadDashboard} onLogout={handleLogout} />
+      )}
+    </AppLayout>
   );
 }
 
@@ -137,9 +114,7 @@ function DashboardData({ data, loading, onRefresh, onLogout }) {
 
       <section className="dashboard-profile card" aria-labelledby="profile-title">
         <div className="profile-top">
-          <span className="profile-avatar" aria-hidden="true">
-            {getInitials(user.name)}
-          </span>
+          <Avatar size="lg" />
           <div>
             <h2 id="profile-title">Profile</h2>
             <p className="text-muted">Your account details.</p>
@@ -166,6 +141,9 @@ function DashboardData({ data, loading, onRefresh, onLogout }) {
         </dl>
 
         <div className="profile-actions">
+          <Button to="/profile" variant="outline">
+            Edit profile
+          </Button>
           <Button variant="danger" onClick={onLogout}>
             Logout
           </Button>

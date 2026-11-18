@@ -59,6 +59,11 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
+  // After a profile change, so Navbar, Sidebar and pages update right away.
+  function updateUser(updatedUser) {
+    setUser((current) => ({ ...current, ...updatedUser }));
+  }
+
   const value = {
     user,
     loading,
@@ -66,6 +71,7 @@ export function AuthProvider({ children }) {
     signup,
     login,
     logout,
+    updateUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,0 +1,89 @@
+/* ===== Header ===== */
+.profile-page-header {
+  margin-bottom: var(--space-6);
+}
+
+.profile-page-header h1 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: var(--space-1);
+}
+
+.profile-page-header p {
+  margin: 0;
+}
+
+/* Shown after 3 wrong current-password attempts */
+.profile-lock-notice {
+  max-width: 720px;
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+  background: #fef2f2;
+  color: var(--color-error);
+  font-weight: 500;
+}
+
+/* ===== Sections ===== */
+.profile-page-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 720px;
+}
+
+.profile-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-1);
+}
+
+.profile-section > p {
+  margin-bottom: var(--space-6);
+}
+
+/* ===== Profile picture ===== */
+.picture-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.picture-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.picture-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.picture-note {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.picture-controls .field-error {
+  margin: 0;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 640px) {
+  .picture-row {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .picture-row > img {
+    align-self: center;
+  }
+
+  .profile-section .btn {
+    width: 100%;
+  }
+}

@@ -7,6 +7,7 @@ const {
   TOKEN_EXPIRES_IN,
   COOKIE_MAX_AGE_MS,
 } = require('../config/cookie');
+const { getPictureVersion } = require('../utils/profilePicture');
 
 const SALT_ROUNDS = 10;
 
@@ -51,7 +52,7 @@ async function login(req, res) {
   const { email, password } = req.body;
 
   const [rows] = await pool.query(
-    'SELECT id, name, email, password_hash FROM users WHERE email = ?',
+    'SELECT id, name, email, profile_picture, password_hash FROM users WHERE email = ?',
     [email]
   );
   const user = rows[0];
@@ -91,7 +92,14 @@ async function login(req, res) {
   res.json({
     success: true,
     message: 'Login successful.',
-    data: { user: { id: user.id, name: user.name, email: user.email } },
+    data: {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        profilePictureVersion: getPictureVersion(user.profile_picture),
+      },
+    },
   });
 }
 

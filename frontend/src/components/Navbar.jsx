@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import Button from './Button';
+import Avatar from './Avatar';
 import './Navbar.css';
 
 // Top bar. Shows Login/Sign Up for guests, Dashboard/Logout for users.
@@ -52,6 +53,16 @@ function Navbar({ onMenuClick }) {
         <nav className={`navbar-actions ${menuOpen ? 'is-open' : ''}`}>
           {isAuthenticated ? (
             <>
+              {/* Avatar links to the Edit Profile page. The text shows only in the mobile menu. */}
+              <Link
+                to="/profile"
+                className="navbar-profile"
+                aria-label="Edit profile"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Avatar size="sm" />
+                <span className="navbar-profile-text">Edit profile</span>
+              </Link>
               <Button to="/dashboard" variant="ghost" size="sm">
                 Dashboard
               </Button>
